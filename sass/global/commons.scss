@@ -1,0 +1,60 @@
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  height: auto;
+  min-height: 100vh;
+  font-family: $font-family-base;
+  font-size: 18px;
+  font-weight: normal;
+  color: #000;
+  background-color: $color-bg;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: inherit;
+
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.visually-hidden:not(:focus):not(:active) {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.main {
+  min-height: 100%;
+  flex: 1 0 auto;
+}
+
+.container {
+  min-width: 320px;
+  max-width: 1280px;
+  position: relative;
+  margin: 0 auto;
+  padding: 0 $indent;
+  text-align: center;
+  @include clearfix;
+}
+

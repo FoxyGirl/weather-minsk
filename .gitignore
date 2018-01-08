@@ -1,0 +1,6 @@
+.DS_Store
+.idea
+*.log
+build/
+node_modules/
+Thumbs.db

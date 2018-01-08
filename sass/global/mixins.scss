@@ -1,0 +1,50 @@
+@mixin clearfix() {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin ul-clear() {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin placeholder-color($color: red, $opacity: 1) {
+
+  &::-webkit-input-placeholder {
+    color: $color;
+    opacity: $opacity;
+  }
+
+  &::-moz-placeholder {
+    color: $color;
+    opacity: $opacity;
+  }
+
+  &:-moz-placeholder {
+    color: $color;
+    opacity: $opacity;
+  }
+
+  &::-ms-input-placeholder {
+    color: $color;
+    opacity: $opacity;
+  }
+
+  &:-ms-input-placeholder {
+    color: $color;
+    opacity: $opacity;
+  }
+}
+
+@mixin zero-centered() {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
