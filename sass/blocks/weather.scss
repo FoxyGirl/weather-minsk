@@ -1,0 +1,41 @@
+.weather {
+  @include ul-clear;
+  display: flex;
+  justify-content: space-between;
+
+  &__item {
+    flex: 1 1 auto;
+    padding: 10px;
+    border-right: 1px solid #333;
+    text-align: center;
+  }
+
+  &__text {
+    margin-bottom: 20px;
+  }
+
+  &__date {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: $color-accent;
+  }
+
+  &__desc {
+    @include ul-clear;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__desc-item {
+    flex: 1 1 auto;
+
+    div {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__time {
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+}

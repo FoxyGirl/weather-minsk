@@ -12,6 +12,44 @@
     <div class="main">
         <div class="container">
             <h1>Погода в Минске</h1>
+            <ul class="weather" id="weather">
+                <!--
+                <li class="weather__item" id="weatherTemplate">
+                    <div class="weather__text">Малообачно</div>
+                    <div class="weather__date">Вт, 9 сентя</div>
+                    <ul class="weather__desc">
+                        <li class="weather__desc-item">
+                            <div class="weather__time">Ночью</div>
+                            <div class="weather__temp">+23</div>
+                            <div class="weather__wind">штиль</div>
+                            <div class="weather__pressure">745</div>
+                            <div class="weather__humidity">40%</div>
+                        </li>
+                        <li class="weather__desc-item">
+                            <div class="weather__time">Утром</div>
+                            <div class="weather__temp">+23</div>
+                            <div class="weather__wind">штиль</div>
+                            <div class="weather__pressure">745</div>
+                            <div class="weather__humidity">40%</div>
+                        </li>
+                        <li class="weather__desc-item">
+                            <div class="weather__time">Днем</div>
+                            <div class="weather__temp">+23</div>
+                            <div class="weather__wind">штиль</div>
+                            <div class="weather__pressure">745</div>
+                            <div class="weather__humidity">40%</div>
+                        </li>
+                        <li class="weather__desc-item">
+                            <div class="weather__time">Вечером</div>
+                            <div class="weather__temp">+23</div>
+                            <div class="weather__wind">штиль</div>
+                            <div class="weather__pressure">745</div>
+                            <div class="weather__humidity">40%</div>
+                        </li>
+                    </ul>
+                </li>
+                -->
+            </ul>
         </div>
     </div>
     <footer class="page-footer">
@@ -19,6 +57,26 @@
             <p class="page-footer__copyright">&copy; 2018</p>
         </div>
     </footer>
+
+    <template id="weatherItem">
+        <li class="weather__item" id="weatherTemplate">
+            <div class="weather__text">Малообачно</div>
+            <div class="weather__date">Вт, 9 сентя</div>
+            <ul class="weather__desc">
+
+            </ul>
+        </li>
+    </template>
+
+    <template id="weatherDescItem">
+        <li class="weather__desc-item">
+            <div class="weather__time">Вечером</div>
+            <div class="weather__temp">+23</div>
+            <div class="weather__wind">штиль</div>
+            <div class="weather__pressure">745</div>
+            <div class="weather__humidity">40%</div>
+        </li>
+    </template>
     <script src="js/scripts.min.js"></script>
     </body>
 </html>
