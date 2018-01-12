@@ -3,44 +3,101 @@
 
     var cityId = 625144;
     // var cityName = 'Minsk,by';
-    // var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&type=like&APPID=43c7a12488a6acfc84d986708d2a0504';
-    var urlWeather = 'http://api.openweathermap.org/data/2.5/weather?id=' + cityId + '&APPID=43c7a12488a6acfc84d986708d2a0504'; // current weather
+    var urlWeather = 'http://api.openweathermap.org/data/2.5/weather?id=' + cityId
+        + '&units=metric'
+        + '&APPID=43c7a12488a6acfc84d986708d2a0504'; // current weather
 
     var urlForecast = 'http://api.openweathermap.org/data/2.5/forecast?id=' + cityId
-            + '&units=metric'
+        + '&units=metric'
         + '&APPID=43c7a12488a6acfc84d986708d2a0504'; // weather forecast
 
 
-    window.load(urlForecast, onLoad);
+    window.load(urlWeather, createWeatherNow);
+    window.load(urlForecast, createWeatherItems);
 
-    function onLoad(data) {
+    function createWeatherNow(data) {
+        // console.log(' WeatherNow data ' + JSON.stringify(data));
+
+        var  WeatherNowData = {
+            "coord":
+                {
+                    "lon":27.57,
+                    "lat":53.9
+                },
+            "weather":[
+                {
+                    "id":600,
+                    "main":"Snow",
+                    "description":"light snow",
+                    "icon":"13d"
+                }
+                ],
+            "base":"stations",
+            "main":
+                {
+                    "temp":271.15,
+                    "pressure":1033,
+                    "humidity":79,
+                    "temp_min":271.15,
+                    "temp_max":271.15
+                },
+            "visibility":10000,
+            "wind":
+                {
+                    "speed":4,
+                    "deg":60
+                },
+            "clouds":{"all":90},
+            "dt":1515745800,
+            "sys":
+                {
+                    "type":1,
+                    "id":7377,
+                    "message":0.0038,
+                    "country":"BY",
+                    "sunrise":1515738137,
+                    "sunset":1515766463
+                },
+            "id":625144,
+            "name":"Minsk",
+            "cod":200
+        }
+
+        if ('content' in document.createElement('template')) {
+            var weatherItem = document.getElementById('weatherNowTemplate');
+            var clone = document.importNode(weatherItem.content, true);
+
+            clone.querySelector('.weather-now__temp').innerHTML = Math.round(data.main.temp) + '°C';
+            clone.querySelector('.weather-now__date').innerHTML =  dateToStrig(new Date());
+            clone.getElementById('weatherNowHumidity').innerHTML = Math.round(data.main.humidity);
+            clone.getElementById('weatherNowWind').innerHTML = data.wind.speed ? Math.round(data.wind.speed) : 'Штиль';
+
+            var weatherDesc = data.weather[0].description;
+            clone.getElementById('weatherNowDesc').innerHTML = capitalizeFirstLetter(weatherDesc);
+
+            document.getElementById('weatherNowWrap').appendChild(clone);
+        }
+
+
+
+    }
+
+    function createWeatherItems(data) {
         // console.log('data ' + JSON.stringify(data));
 
-        var firstDate = new Date(data.list[0].dt_txt);
+        var firstDate = new Date();
+        firstDate = firstDate.getDate() + 1;
         var forecasts = [];
-        var COUNTDAYS = 3;
+        var COUNTDAYS = 4;
 
         for (var i = 0; i < COUNTDAYS; i++) {
-            var forecast = getForecastForDate(firstDate.getDate() + i);
+            var forecast = getForecastForDate(firstDate + i);
             var newForecast = {}
             newForecast['forecast' + i] = forecast;
             forecasts.push(newForecast);
         }
         // console.log('forecasts ' + JSON.stringify(forecasts));
 
-
-        function dateToStrig(date) {
-            var options = {
-                month: 'long',
-                day: 'numeric',
-                weekday: 'long'
-            };
-
-            var outDate = date.toLocaleString('ru', options);
-            outDate = outDate.charAt(0).toUpperCase() + outDate.substr(1);
-            console.log(outDate);
-            return outDate;
-        }
         /*******************************/
 
         var out = {
@@ -92,63 +149,24 @@
         function createWeatherItems (arrayItems) {
             var weather = document.getElementById('weather');
             for (var i = 0; i < COUNTDAYS; i++) {
-                var item = arrayItems[i]['forecast' + i][0];
-                console.log('item ' + JSON.stringify(item));
+                var itemNight = arrayItems[i]['forecast' + i][0];
+                var itemNDay = arrayItems[i]['forecast' + i][1];
+                // console.log('item ' + JSON.stringify(itemNDay));
 
                 if ('content' in document.createElement('template')) {
-                    var weatherItem = document.getElementById('weatherItem');
+                    var weatherItem = document.getElementById('weatherItemTemplate');
                     var clone = document.importNode(weatherItem.content, true);
 
-                    clone.querySelector('.weather__date').innerHTML = dateToStrig(new Date(item.dt_txt));
-                    clone.querySelector('.weather__text').innerHTML = item.weather[0].description;
-                    clone.querySelector('.weather__img img').setAttribute('src', 'https://openweathermap.org/img/w/' + item.weather[0].icon + '.png');
+                    clone.querySelector('.weather__date').innerHTML = dateToStrig(new Date(itemNight.dt_txt)).replace(',', '<br>');;
+                    clone.querySelector('.weather__tempMin').innerHTML = Math.round(itemNight.main.temp);
+                    clone.querySelector('.weather__tempMax').innerHTML = Math.round(itemNDay.main.temp);
+                    clone.querySelector('.weather__desc').innerHTML = capitalizeFirstLetter(itemNDay.weather[0].description);
+                    clone.querySelector('.weather__img img').setAttribute('src', 'https://openweathermap.org/img/w/' + itemNDay.weather[0].icon + '.png');
 
-                    createWeatherDescItems (arrayItems[i]['forecast' + i], clone);
                     weather.appendChild(clone);
 
                 }
             };
-        }
-
-        function createWeatherDescItems (arrayItems, parentElem) {
-            arrayItems.forEach(function(item){
-
-                if ('content' in document.createElement('template')) {
-                    var weatherDescItem = document.getElementById('weatherDescItem');
-                    var clone = document.importNode(weatherDescItem.content, true);
-
-                    var hours = new Date(item.dt_txt).getHours();
-                    clone.querySelector('.weather__time').innerHTML = getTimeDesc(hours);
-                    clone.querySelector('.weather__temp').innerHTML = Math.round(item.main.temp) + '°C';
-                    clone.querySelector('.weather__wind').innerHTML = item.wind.speed ? item.wind.speed + ' м/с' : 'штиль';
-                    clone.querySelector('.weather__pressure').innerHTML = Math.round(item.main.pressure) + ' мм.рт.с.';
-                    clone.querySelector('.weather__humidity').innerHTML = item.main.humidity + '%';
-
-                    parentElem.querySelector('.weather__desc').appendChild(clone);
-                }
-            });
-        }
-
-
-        /**
-         * Create time decription
-         * @param {number} hours - Hours for time decription
-         * @returns {sting} - time decription
-         */
-        function getTimeDesc(hours) {
-            var timeDesc = {
-                0: 'ночью',
-                6: 'утром',
-                12: 'днем',
-                21: 'вечером'
-            };
-
-            for (var key in timeDesc) {
-                if ( key === hours.toString() ) {
-                    return timeDesc[key];
-                }
-            }
-
         }
 
         /**
@@ -157,7 +175,7 @@
          * @returns {Array} - Filtered array according hoursArray
          */
         function getForecastForDate(date) {
-            var hoursArray = [0, 6, 12, 21];
+            var hoursArray = [0, 15];
 
             var outForecast = data.list.filter(function(item) {
                 var itemDate = new Date(item.dt_txt);
@@ -168,5 +186,21 @@
             return outForecast;
         }
 
+    }
+
+    function dateToStrig(date) {
+        var options = {
+            month: 'long',
+            day: 'numeric',
+            weekday: 'long'
+        };
+
+        var outDate = date.toLocaleString('ru', options);
+
+        return capitalizeFirstLetter(outDate);
+    }
+
+    function capitalizeFirstLetter(str) {
+        return str.charAt(0).toUpperCase() + str.substr(1);
     }
 })();

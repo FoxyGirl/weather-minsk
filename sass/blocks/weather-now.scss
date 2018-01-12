@@ -1,5 +1,5 @@
 .weather-now {
-  margin: 50px;
+  margin: 50px 0;
   text-shadow: 5px 5px 10px #000;
 
   &__main {
@@ -32,9 +32,9 @@
   }
 
   &__item {
+    margin-right: 50px;
     text-align: left;
     font-size: 30px;
-    margin-right: 50px;
 
     &:last-child {
       margin-right: 0;

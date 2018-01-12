@@ -128,7 +128,7 @@ gulp.task("scripts", function() {
     // return gulp.src(["!js/picturefill.min.js", "js/*.js"])
     return gulp.src(["js/load.js","js/*script.js"])
         .pipe(concat("scripts.min.js"))
-        .pipe(uglify())
+        // .pipe(uglify())
         .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
         .pipe(gulp.dest("build/js"));
 });

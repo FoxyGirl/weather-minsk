@@ -1,50 +1,36 @@
 .weather {
   @include ul-clear;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   &__item {
-    flex: 1 1 auto;
-    padding: 10px;
-    border-right: 2px solid rgba(#fff, 0.3);
-    text-align: center;
-
-    &:last-child {
-      border-right: none;
-    }
-  }
-
-  &__text {
-    margin-bottom: 20px;
-    text-transform: capitalize;
+    //flex: 1 1 auto;
+    width: 20%;
+    padding: 3% 2%;
+    margin-right: 2%;
+    box-sizing: border-box;
+    text-align: left;
+    background-color: rgba(#000, 0.7);
   }
 
   &__date {
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: $color-accent;
+    margin-bottom: 40px;
+    font-size: 40px;
+    font-weight: 400;
   }
 
   &__img {
-    text-align: center;
+    text-align: left;
+    margin-bottom: 40px;
+  }
+
+  &__temp {
+    font-size: 50px;
+    margin-bottom: 20px;
   }
 
   &__desc {
-    @include ul-clear;
-    display: flex;
-    justify-content: center;
+    font-size: 30px;
   }
 
-  &__desc-item {
-    flex: 1 1 auto;
-
-    div {
-      margin-bottom: 15px;
-    }
-  }
-
-  &__time {
-    font-weight: bold;
-    text-transform: capitalize;
-  }
 }

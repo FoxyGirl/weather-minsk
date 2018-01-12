@@ -12,7 +12,8 @@
     <body>
     <div class="main">
         <div class="container">
-            <div class="weather-now">
+            <div class="weather-now" id="weatherNowWrap">
+                <!--
                 <div class="weather-now__main">
                     <div class="weather-now__temp">-3°C</div>
                     <div class="weather-now__city">Минск</div>
@@ -38,44 +39,33 @@
                         <div class="weather-now__text">Погодные условия</div>
                     </li>
                 </ul>
+                -->
             </div>
             <ul class="weather" id="weather">
                 <!--
                 <li class="weather__item" id="weatherTemplate">
-                    <div class="weather__text">Малообачно</div>
                     <div class="weather__date">Вт, 9 сентя</div>
-                    <ul class="weather__desc">
-                        <li class="weather__desc-item">
-                            <div class="weather__time">Ночью</div>
-                            <div class="weather__temp">+23</div>
-                            <div class="weather__wind">штиль</div>
-                            <div class="weather__pressure">745</div>
-                            <div class="weather__humidity">40%</div>
-                        </li>
-                        <li class="weather__desc-item">
-                            <div class="weather__time">Утром</div>
-                            <div class="weather__temp">+23</div>
-                            <div class="weather__wind">штиль</div>
-                            <div class="weather__pressure">745</div>
-                            <div class="weather__humidity">40%</div>
-                        </li>
-                        <li class="weather__desc-item">
-                            <div class="weather__time">Днем</div>
-                            <div class="weather__temp">+23</div>
-                            <div class="weather__wind">штиль</div>
-                            <div class="weather__pressure">745</div>
-                            <div class="weather__humidity">40%</div>
-                        </li>
-                        <li class="weather__desc-item">
-                            <div class="weather__time">Вечером</div>
-                            <div class="weather__temp">+23</div>
-                            <div class="weather__wind">штиль</div>
-                            <div class="weather__pressure">745</div>
-                            <div class="weather__humidity">40%</div>
-                        </li>
-                    </ul>
+                    <div class="weather__img">
+                        <img src="https://openweathermap.org/img/w/13n.png" alt="Weather Minsk, BY" width="100" height="100">
+                    </div>
+                    <div class="weather__temp">
+                        <span class="weather__tempMax">+23</span> /
+                        <span class="weather__tempMin">+23</span>
+                    </div>
+                    <div class="weather__desc">Малообачно</div>
                 </li>
-                -->
+                <li class="weather__item" id="weatherTemplate">
+                    <div class="weather__date">Вт, 9 сентя</div>
+                    <div class="weather__img">
+                        <img src="https://openweathermap.org/img/w/13n.png" alt="Weather Minsk, BY" width="100" height="100">
+                    </div>
+                    <div class="weather__temp">
+                        <span class="weather__tempMax">+23</span> /
+                        <span class="weather__tempMin">+23</span>
+                    </div>
+                    <div class="weather__desc">Малообачно</div>
+                </li>
+                 -->
             </ul>
         </div>
     </div>
@@ -86,28 +76,48 @@
         </div>
     </footer>
 
-    <template id="weatherItem">
-        <li class="weather__item" id="weatherTemplate">
-            <div class="weather__text">Малообачно</div>
+    <template id="weatherNowTemplate">
+        <div class="weather-now__main">
+            <div class="weather-now__temp">-3°C</div>
+            <div class="weather-now__city">Минск</div>
+            <div class="weather-now__date">Вторник, 9 сентября</div>
+        </div>
+        <ul class="weather-now__list">
+            <li class="weather-now__item">
+                <div class="weather-now__value">
+                    <span id="weatherNowHumidity">81</span> %
+                </div>
+                <div class="weather-now__text">Влажность</div>
+            </li>
+            <li class="weather-now__item">
+                <div class="weather-now__value">
+                    <span id="weatherNowWind">2.5</span> м/с
+                </div>
+                <div class="weather-now__text">Ветер</div>
+            </li>
+            <li class="weather-now__item  weather-now__item--desc">
+                <div class="weather-now__value">
+                    <span id="weatherNowDesc">Облачно</span>
+                </div>
+                <div class="weather-now__text">Погодные условия</div>
+            </li>
+        </ul>
+    </template>
+
+    <template id="weatherItemTemplate">
+        <li class="weather__item">
+            <div class="weather__date">Вт, 9 сентя</div>
             <div class="weather__img">
                 <img src="https://openweathermap.org/img/w/13n.png" alt="Weather Minsk, BY" width="100" height="100">
             </div>
-            <div class="weather__date">Вт, 9 сентя</div>
-            <ul class="weather__desc">
-
-            </ul>
+            <div class="weather__temp">
+                <span class="weather__tempMax">+23</span> /
+                <span class="weather__tempMin">+23</span>
+            </div>
+            <div class="weather__desc">Малообачно</div>
         </li>
     </template>
 
-    <template id="weatherDescItem">
-        <li class="weather__desc-item">
-            <div class="weather__time">Вечером</div>
-            <div class="weather__temp">+23</div>
-            <div class="weather__wind">штиль</div>
-            <div class="weather__pressure">745</div>
-            <div class="weather__humidity">40%</div>
-        </li>
-    </template>
     <script src="js/scripts.min.js"></script>
     </body>
 </html>
