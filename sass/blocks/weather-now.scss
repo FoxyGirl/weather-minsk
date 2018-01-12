@@ -1,0 +1,49 @@
+.weather-now {
+  margin: 50px;
+  text-shadow: 5px 5px 10px #000;
+
+  &__main {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+  }
+
+  &__temp {
+    flex-shrink: 0;
+    font-size: 150px;
+    font-weight: 300;
+    margin-right: 150px;
+  }
+
+  &__city {
+    font-size: 120px;
+  }
+
+  &__date {
+    margin-left: auto;
+    font-size: 60px;
+  }
+
+  &__list {
+    @include ul-clear;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  &__item {
+    text-align: left;
+    font-size: 30px;
+    margin-right: 50px;
+
+    &:last-child {
+      margin-right: 0;
+      margin-left: auto;
+    }
+  }
+
+  &__value {
+    font-size: 50px;
+  }
+
+}

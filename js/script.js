@@ -20,9 +20,11 @@
         var forecasts = [];
         var COUNTDAYS = 3;
 
-        for (let i = 0; i < COUNTDAYS; i++) {
+        for (var i = 0; i < COUNTDAYS; i++) {
             var forecast = getForecastForDate(firstDate.getDate() + i);
-            forecasts.push({['forecast' + i]:forecast});
+            var newForecast = {}
+            newForecast['forecast' + i] = forecast;
+            forecasts.push(newForecast);
         }
         // console.log('forecasts ' + JSON.stringify(forecasts));
 
@@ -89,16 +91,17 @@
 
         function createWeatherItems (arrayItems) {
             var weather = document.getElementById('weather');
-            for (let i = 0; i < COUNTDAYS; i++) {
+            for (var i = 0; i < COUNTDAYS; i++) {
                 var item = arrayItems[i]['forecast' + i][0];
-                // console.log('item ' + JSON.stringify(item));
+                console.log('item ' + JSON.stringify(item));
 
                 if ('content' in document.createElement('template')) {
                     var weatherItem = document.getElementById('weatherItem');
                     var clone = document.importNode(weatherItem.content, true);
 
                     clone.querySelector('.weather__date').innerHTML = dateToStrig(new Date(item.dt_txt));
-                    clone.querySelector('.weather__text').innerHTML = item.weather[0].main + ', ' + item.weather[0].description;
+                    clone.querySelector('.weather__text').innerHTML = item.weather[0].description;
+                    clone.querySelector('.weather__img img').setAttribute('src', 'https://openweathermap.org/img/w/' + item.weather[0].icon + '.png');
 
                     createWeatherDescItems (arrayItems[i]['forecast' + i], clone);
                     weather.appendChild(clone);
@@ -115,10 +118,10 @@
                     var clone = document.importNode(weatherDescItem.content, true);
 
                     var hours = new Date(item.dt_txt).getHours();
-                    clone.querySelector('.weather__time').innerHTML = getTimeDec(hours);
-                    clone.querySelector('.weather__temp').innerHTML = item.main.temp;
+                    clone.querySelector('.weather__time').innerHTML = getTimeDesc(hours);
+                    clone.querySelector('.weather__temp').innerHTML = Math.round(item.main.temp) + '°C';
                     clone.querySelector('.weather__wind').innerHTML = item.wind.speed ? item.wind.speed + ' м/с' : 'штиль';
-                    clone.querySelector('.weather__pressure').innerHTML = Math.round(item.main.pressure);
+                    clone.querySelector('.weather__pressure').innerHTML = Math.round(item.main.pressure) + ' мм.рт.с.';
                     clone.querySelector('.weather__humidity').innerHTML = item.main.humidity + '%';
 
                     parentElem.querySelector('.weather__desc').appendChild(clone);
@@ -132,24 +135,20 @@
          * @param {number} hours - Hours for time decription
          * @returns {sting} - time decription
          */
-        function getTimeDec(hours) {
-            var timeDesc;
-            switch(hours) {
-                case 0:
-                    timeDesc = 'ночью';
-                    break;
-                case 6:
-                    timeDesc = 'утром';
-                    break;
-                case 12:
-                    timeDesc = 'днем';
-                    break;
-                case 18:
-                    timeDesc = 'вечером';
-                    break;
+        function getTimeDesc(hours) {
+            var timeDesc = {
+                0: 'ночью',
+                6: 'утром',
+                12: 'днем',
+                21: 'вечером'
+            };
+
+            for (var key in timeDesc) {
+                if ( key === hours.toString() ) {
+                    return timeDesc[key];
+                }
             }
 
-            return timeDesc;
         }
 
         /**
@@ -158,7 +157,7 @@
          * @returns {Array} - Filtered array according hoursArray
          */
         function getForecastForDate(date) {
-            var hoursArray = [0, 6, 12, 18];
+            var hoursArray = [0, 6, 12, 21];
 
             var outForecast = data.list.filter(function(item) {
                 var itemDate = new Date(item.dt_txt);

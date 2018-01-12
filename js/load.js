@@ -1,7 +1,6 @@
 /**
  * Created by FoxyGirl on 18.02.2017.
  */
-'use strict';
 
 /**
  * @module load
@@ -10,7 +9,9 @@
  * @param {Function} onLoad - Callback function.
  */
 window.load = (function () {
-  var xhr = null;
+    'use strict';
+
+    var xhr = null;
 
   return function (url, onLoad) {
     xhr = new XMLHttpRequest();
