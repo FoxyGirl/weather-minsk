@@ -13,11 +13,15 @@
 
 
     window.load(urlWeather, createWeatherNow);
-    window.load(urlForecast, createWeatherItems);
 
+    /**
+     * Create weather now widget and weather forecast items
+     * @param data
+     */
     function createWeatherNow(data) {
         // console.log(' WeatherNow data ' + JSON.stringify(data));
 
+        // Help data view
         var  WeatherNowData = {
             "coord":
                 {
@@ -78,10 +82,13 @@
             document.getElementById('weatherNowWrap').appendChild(clone);
         }
 
-
-
+        window.load(urlForecast, createWeatherItems);
     }
 
+    /**
+     * Create weather items
+     * @param data
+     */
     function createWeatherItems(data) {
         // console.log('data ' + JSON.stringify(data));
 
@@ -99,7 +106,7 @@
         // console.log('forecasts ' + JSON.stringify(forecasts));
 
         /*******************************/
-
+        // Help data view
         var out = {
             "dt":1515542400,
             "main":
@@ -146,6 +153,8 @@
 
         createWeatherItems(forecasts);
 
+        /**********************************/
+
         function createWeatherItems (arrayItems) {
             var weather = document.getElementById('weather');
             for (var i = 0; i < COUNTDAYS; i++) {
@@ -188,6 +197,11 @@
 
     }
 
+    /**
+     *
+     * @param {Date} date
+     * @returns {string} - Date converted to string according inside options
+     */
     function dateToStrig(date) {
         var options = {
             month: 'long',
@@ -200,6 +214,11 @@
         return capitalizeFirstLetter(outDate);
     }
 
+    /**
+     *
+     * @param {string} str
+     * @returns {string} - String with capitalize first letter
+     */
     function capitalizeFirstLetter(str) {
         return str.charAt(0).toUpperCase() + str.substr(1);
     }
