@@ -175,7 +175,8 @@
                     clone.querySelector('.weather__tempMin').innerHTML = Math.round(itemNight.main.temp);
                     clone.querySelector('.weather__tempMax').innerHTML = Math.round(itemDay.main.temp);
                     clone.querySelector('.weather__desc').innerHTML = capitalizeFirstLetter(itemDay.weather[0].description);
-                    clone.querySelector('.weather__img img').setAttribute('src', 'https://openweathermap.org/img/w/' + itemDay.weather[0].icon + '.png');
+                    // clone.querySelector('.weather__img img').setAttribute('src', 'https://openweathermap.org/img/w/' + itemDay.weather[0].icon + '.png');
+                    clone.querySelector('.weather__img i').classList.add('owf-' + itemDay.weather[0].id);
 
                     weather.appendChild(clone);
 
