@@ -4,11 +4,11 @@
     var cityId = 625144;
     // var cityName = 'Minsk,by';
     var urlWeather = 'http://api.openweathermap.org/data/2.5/weather?id=' + cityId
-        + '&units=metric'
+        + '&units=metric&lang=ru'
         + '&APPID=43c7a12488a6acfc84d986708d2a0504'; // current weather
 
     var urlForecast = 'http://api.openweathermap.org/data/2.5/forecast?id=' + cityId
-        + '&units=metric'
+        + '&units=metric&lang=ru'
         + '&APPID=43c7a12488a6acfc84d986708d2a0504'; // weather forecast
 
 
@@ -22,7 +22,7 @@
         // console.log(' WeatherNow data ' + JSON.stringify(data));
 
         // Help data view
-        var  WeatherNowData = {
+     /*   var  WeatherNowData = {
             "coord":
                 {
                     "lon":27.57,
@@ -66,7 +66,7 @@
             "name":"Minsk",
             "cod":200
         }
-
+*/
         if ('content' in document.createElement('template')) {
             var weatherItem = document.getElementById('weatherNowTemplate');
             var clone = document.importNode(weatherItem.content, true);
@@ -153,14 +153,19 @@
 
         createWeatherItems(forecasts);
 
+        setTimeout(function() {
+            document.querySelector('.weather').classList.add('weather--show');
+        }, 500);
+
+
         /**********************************/
 
         function createWeatherItems (arrayItems) {
             var weather = document.getElementById('weather');
             for (var i = 0; i < COUNTDAYS; i++) {
                 var itemNight = arrayItems[i]['forecast' + i][0];
-                var itemNDay = arrayItems[i]['forecast' + i][1];
-                // console.log('item ' + JSON.stringify(itemNDay));
+                var itemDay = arrayItems[i]['forecast' + i][1];
+                // console.log('item ' + JSON.stringify(itemDay));
 
                 if ('content' in document.createElement('template')) {
                     var weatherItem = document.getElementById('weatherItemTemplate');
@@ -168,9 +173,9 @@
 
                     clone.querySelector('.weather__date').innerHTML = dateToStrig(new Date(itemNight.dt_txt)).replace(',', '<br>');;
                     clone.querySelector('.weather__tempMin').innerHTML = Math.round(itemNight.main.temp);
-                    clone.querySelector('.weather__tempMax').innerHTML = Math.round(itemNDay.main.temp);
-                    clone.querySelector('.weather__desc').innerHTML = capitalizeFirstLetter(itemNDay.weather[0].description);
-                    clone.querySelector('.weather__img img').setAttribute('src', 'https://openweathermap.org/img/w/' + itemNDay.weather[0].icon + '.png');
+                    clone.querySelector('.weather__tempMax').innerHTML = Math.round(itemDay.main.temp);
+                    clone.querySelector('.weather__desc').innerHTML = capitalizeFirstLetter(itemDay.weather[0].description);
+                    clone.querySelector('.weather__img img').setAttribute('src', 'https://openweathermap.org/img/w/' + itemDay.weather[0].icon + '.png');
 
                     weather.appendChild(clone);
 

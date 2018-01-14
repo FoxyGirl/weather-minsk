@@ -3,14 +3,29 @@
   display: flex;
   justify-content: flex-start;
 
+  &.weather--show {
+    .weather__item {
+      opacity: 1;
+      transition: opacity 0.5s ease-in-out;
+
+      @for $i from 1 through 4 {
+        &:nth-child(#{$i}) {
+          transition-delay: 0.5s*$i;
+        }
+      }
+    }
+  }
+
   &__item {
     //flex: 1 1 auto;
     width: 20%;
-    padding: 3% 2%;
+    padding: 2%;
     margin-right: 2%;
     box-sizing: border-box;
     text-align: left;
     background-color: rgba(#000, 0.7);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
   }
 
   &__date {
@@ -22,6 +37,21 @@
   &__img {
     text-align: left;
     margin-bottom: 40px;
+
+    img {
+    //  filter:
+    //          //brightness(100%)
+    //          contrast(20)
+    //          grayscale(100%)
+    //          brightness(100%)
+    //
+    //          saturate(100)
+    //
+    //          invert(100%)
+    //
+    //          drop-shadow(5px 2px 5px rgba(255,255,255,0.9))
+    //;
+    }
   }
 
   &__temp {
